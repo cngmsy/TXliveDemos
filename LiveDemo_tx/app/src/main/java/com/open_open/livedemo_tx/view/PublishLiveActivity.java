@@ -72,7 +72,7 @@ public class PublishLiveActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_publish);
-
+        mPublishLivePresenter = new UploadHelper(this, this);
         tvTitle = (TextView) findViewById(R.id.live_title);
         BtnBack = (TextView) findViewById(R.id.btn_cancel);
         tvPicTip = (TextView) findViewById(R.id.tv_pic_tip);
@@ -332,15 +332,17 @@ public class PublishLiveActivity extends BaseActivity implements View.OnClickLis
             if (bUploading) {
                 Toast.makeText(this, getString(R.string.publish_wait_uploading) + " " + uploadPercent + "%", Toast.LENGTH_SHORT).show();
             } else {
-               /* Intent intent = new Intent(this, LiveActivity.class);
+                //点击开始直播进入liveActivity
+                Intent intent = new Intent(this, LiveActivity.class);
                 MySelfInfo.getInstance().setIdStatus(Constants.HOST);
                 MySelfInfo.getInstance().setJoinRoomWay(true);
                 CurLiveInfo.setTitle(tvTitle.getText().toString().isEmpty() ? "直播间" : tvTitle.getText().toString());
+                System.out.println("id==="+MySelfInfo.getInstance().getId()+"roomnum==="+MySelfInfo.getInstance().getMyRoomNum());
                 CurLiveInfo.setHostID(MySelfInfo.getInstance().getId());
                 CurLiveInfo.setRoomNum(MySelfInfo.getInstance().getMyRoomNum());
                 startActivity(intent);
                 SxbLog.i(TAG, "PerformanceTest  publish Live     " + SxbLog.getTime());
-                this.finish();*/
+                this.finish();
             }
 
         } else if (i == R.id.cover) {

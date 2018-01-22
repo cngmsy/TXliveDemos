@@ -50,6 +50,9 @@
         <activity android:name=".view.HomeActivity"/>
         <activity android:name=".base.BaseActivity"/>
 
+        <activity android:name=".view.PublishLiveActivity"/>
+        <activity android:name=".view.LiveActivity"/>
+
     </application>
 
 </manifest>
