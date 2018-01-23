@@ -96,7 +96,7 @@ public class LoginHelper extends Presenter {
                     MySelfInfo.getInstance().writeToCache(mContext);
 
                     Logger.d("注册222"+MySelfInfo.getInstance().toString());
-                    //登录
+                    //2222登录
                     iLiveLogin(MySelfInfo.getInstance().getId(), MySelfInfo.getInstance().getUserSig());
                 } else {
                     mLoginView.loginFail("Module_TLSSDK", result.getErrorCode(), result.getErrorInfo());
@@ -112,7 +112,7 @@ public class LoginHelper extends Presenter {
          * @param sig
          */
         public void iLiveLogin(String id, String sig) {
-            //登录
+            //在这里登录的是腾讯云后台
             ILiveLoginManager.getInstance().iLiveLogin(id, sig, new ILiveCallBack() {
                 @Override
                 public void onSuccess(Object data) {
