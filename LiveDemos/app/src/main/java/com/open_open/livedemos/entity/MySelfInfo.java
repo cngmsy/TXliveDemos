@@ -183,4 +183,22 @@ public class MySelfInfo {
     public void setGuestRole(String guestRole) {
         this.guestRole = guestRole;
     }
+
+    @Override
+    public String toString() {
+        return "MySelfInfo{" +
+                "id='" + id + '\'' +
+                ", userSig='" + userSig + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", sign='" + sign + '\'' +
+                ", CosSig='" + CosSig + '\'' +
+                ", token='" + token + '\'' +
+                ", bLiveAnimator=" + bLiveAnimator +
+                ", beautyType=" + beautyType +
+                ", guestRole='" + guestRole + '\'' +
+                ", id_status=" + id_status +
+                ", myRoomNum=" + myRoomNum +
+                '}';
+    }
 }
