@@ -33,10 +33,7 @@ public class LoginHelper extends Presenter {
         mLoginView = loginView;
     }
 
-    public LoginHelper(Context context, LogoutView logoutView) {
-        mContext = context;
-        mLogoutView = logoutView;
-    }
+
 
 
     //登录模式登录
