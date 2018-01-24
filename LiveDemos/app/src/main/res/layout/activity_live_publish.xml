@@ -122,7 +122,7 @@
                     android:textSize="@dimen/h6" />
             </LinearLayout>
 
-            <com.open_open.livedemo_tx.view.customviews.CustomSwitch
+            <com.open_open.livedemos.views.customviews.CustomSwitch
                 android:id="@+id/btn_lbs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                 android:src="@drawable/btn_switch_off" />
         </RelativeLayout>
 
-        <com.open_open.livedemo_tx.view.customviews.LineControllerView
+        <com.open_open.livedemos.views.customviews.LineControllerView
             android:id="@+id/speed_test"
             android:visibility="gone"
             android:layout_width="match_parent"
@@ -146,7 +146,7 @@
             app:canNav="true"
             android:onClick="onClick"
             />
-        <com.open_open.livedemo_tx.view.customviews.LineControllerView
+        <com.open_open.livedemos.views.customviews.LineControllerView
             android:id="@+id/lcv_role"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -180,7 +180,7 @@
                     android:textSize="@dimen/h6" />
             </LinearLayout>
 
-            <com.open_open.livedemo_tx.view.customviews.CustomSwitch
+            <com.open_open.livedemos.views.customviews.CustomSwitch
                 android:id="@+id/record_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,7 +1,9 @@
 package com.open_open.livedemos.presenters;
 
+import com.open_open.livedemos.entity.CurLiveInfo;
 import com.open_open.livedemos.entity.MySelfInfo;
 import com.orhanobut.logger.Logger;
+import com.tencent.ilivesdk.core.ILiveLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +80,31 @@ public class UserServerHelper {
             instance = new UserServerHelper();
         }
         return instance;
+    }
+
+    /**
+     * 心跳上报
+     */
+    public RequestBackInfo heartBeater (int role) {
+        try {
+            JSONObject jasonPacket = new JSONObject();
+            jasonPacket.put("role", role);
+            jasonPacket.put("token", MySelfInfo.getInstance().getToken());
+            jasonPacket.put("roomnum", MySelfInfo.getInstance().getMyRoomNum());
+            jasonPacket.put("thumbup", CurLiveInfo.getAdmires());
+            String json = jasonPacket.toString();
+            String res = post(HEART_BEAT, json);
+            JSONTokener jsonParser = new JSONTokener(res);
+            JSONObject response = (JSONObject) jsonParser.nextValue();
+            int code = response.getInt("errorCode");
+            String errorInfo = response.getString("errorInfo");
+            return new RequestBackInfo(code, errorInfo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -175,6 +202,94 @@ public class UserServerHelper {
                 MySelfInfo.getInstance().setToken(token);
 
             }
+            return new RequestBackInfo(code, errorInfo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
+
+    /**
+     * 上报成员
+     */
+    public RequestBackInfo reportMe(int role, int action) {
+        try {
+            JSONObject jasonPacket = new JSONObject();
+
+            jasonPacket.put("token", MySelfInfo.getInstance().getToken());
+            jasonPacket.put("roomnum", CurLiveInfo.getRoomNum());
+            jasonPacket.put("id", MySelfInfo.getInstance().getId());
+            jasonPacket.put("role", role);
+            jasonPacket.put("operate", action);
+
+            String json = jasonPacket.toString();
+            String res = post(REPORT_ME, json);
+            ILiveLog.i(TAG,"reportMe "+role+" action " + action);
+            JSONTokener jsonParser = new JSONTokener(res);
+            JSONObject response = (JSONObject) jsonParser.nextValue();
+            int code = response.getInt("errorCode");
+            String errorInfo = response.getString("errorInfo");
+            return new RequestBackInfo(code, errorInfo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    /**
+     * 申请创建房间
+     */
+    public RequestBackInfo applyCreateRoom() {
+        try {
+            JSONObject jasonPacket = new JSONObject();
+            jasonPacket.put("type", "live");
+            jasonPacket.put("token", MySelfInfo.getInstance().getToken());
+            String json = jasonPacket.toString();
+            String res = post(APPLY_CREATE_ROOM, json);
+            JSONTokener jsonParser = new JSONTokener(res);
+            JSONObject response = (JSONObject) jsonParser.nextValue();
+            int code = response.getInt("errorCode");
+            String errorInfo = response.getString("errorInfo");
+            if (code == 0) {
+                JSONObject data = response.getJSONObject("data");
+                int avRoom = data.getInt("roomnum");
+                MySelfInfo.getInstance().setMyRoomNum(avRoom);
+                CurLiveInfo.setRoomNum(avRoom);
+                String groupID = data.getString("groupid");
+            }
+            return new RequestBackInfo(code, errorInfo);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    /**
+     * 上报房间信息
+     */
+    public RequestBackInfo reporNewtRoomInfo(String inputJson) {
+        try {
+
+            String res = post(REPORT_ROOM_INFO, inputJson);
+            JSONTokener jsonParser = new JSONTokener(res);
+            JSONObject response = (JSONObject) jsonParser.nextValue();
+            int code = response.getInt("errorCode");
+            String errorInfo = response.getString("errorInfo");
             return new RequestBackInfo(code, errorInfo);
         } catch (JSONException e) {
             e.printStackTrace();
